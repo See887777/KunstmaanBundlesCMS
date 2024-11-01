@@ -41,9 +41,9 @@ class NodeVersionRepository extends EntityRepository
         HasNodeInterface $hasNode,
         NodeTranslation $nodeTranslation,
         BaseUser $owner,
-        NodeVersion $origin = null,
+        ?NodeVersion $origin = null,
         $type = 'public',
-        $created = null
+        $created = null,
     ) {
         $em = $this->getEntityManager();
 

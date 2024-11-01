@@ -43,7 +43,7 @@ class PageBuilder implements BuilderInterface
         Populator $populator,
         Slugifier $slugifier,
         PagesConfiguration $pagesConfiguration,
-        string $userClass
+        string $userClass,
     ) {
         $this->manager = $em;
         $this->nodeRepo = $em->getRepository(Node::class);
@@ -253,10 +253,8 @@ class PageBuilder implements BuilderInterface
     /**
      * @param string $parentPageClass
      * @param string $childPageClass
-     *
-     * @return bool
      */
-    private function canHaveChild($parentPageClass, $childPageClass)
+    private function canHaveChild($parentPageClass, $childPageClass): bool
     {
         $childTypes = $this->pagesConfiguration->getPossibleChildTypes($parentPageClass);
 

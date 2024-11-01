@@ -28,7 +28,7 @@ class NodeIndexUpdateEventListener implements NodeIndexUpdateEventListenerInterf
     /** @var array */
     private $entityChangeSet;
 
-    public function __construct(NodePagesConfiguration $nodePagesConfiguration, EntityManagerInterface $em = null)
+    public function __construct(NodePagesConfiguration $nodePagesConfiguration, ?EntityManagerInterface $em = null)
     {
         $this->nodePagesConfiguration = $nodePagesConfiguration;
         $this->em = $em;
@@ -93,10 +93,7 @@ class NodeIndexUpdateEventListener implements NodeIndexUpdateEventListenerInterf
         $this->nodePagesConfiguration->deleteNodeTranslation($event->getNodeTranslation());
     }
 
-    /**
-     * @return bool
-     */
-    private function hasOfflineParents(NodeTranslation $nodeTranslation)
+    private function hasOfflineParents(NodeTranslation $nodeTranslation): bool
     {
         $lang = $nodeTranslation->getLang();
         $node = $nodeTranslation->getNode();

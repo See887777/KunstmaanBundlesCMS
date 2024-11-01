@@ -49,7 +49,7 @@ final class UsersController extends AbstractController
         ParameterBagInterface $parameterBag,
         UserManager $userManager,
         EventDispatcherInterface $eventDispatcher,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
     ) {
         $this->translator = $translator;
         $this->adminListFactory = $adminListFactory;
@@ -81,10 +81,8 @@ final class UsersController extends AbstractController
 
     /**
      * Get an instance of the admin user class.
-     *
-     * @return BaseUser
      */
-    private function getUserClassInstance()
+    private function getUserClassInstance(): BaseUser
     {
         $userClassName = $this->getParameter('kunstmaan_admin.user_class');
 

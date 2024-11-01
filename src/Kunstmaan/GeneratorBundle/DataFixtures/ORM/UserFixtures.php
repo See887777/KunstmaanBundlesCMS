@@ -29,7 +29,7 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, C
      *
      * @api
      */
-    public function setContainer(ContainerInterface $container = null)
+    public function setContainer(?ContainerInterface $container = null)
     {
         $this->container = $container;
     }
@@ -87,7 +87,7 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, C
         array $roles = [],
         array $groups = [],
         $enabled = false,
-        $changed = false
+        $changed = false,
     ) {
         $user = $this->container->get('kunstmaan_admin.user_manager')->createUser();
         $user->setUsername($username);

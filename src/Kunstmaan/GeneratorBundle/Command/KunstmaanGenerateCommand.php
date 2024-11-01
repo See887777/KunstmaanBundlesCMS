@@ -133,7 +133,7 @@ abstract class KunstmaanGenerateCommand extends GenerateDoctrineCommand
      *
      * @return string The prefix. But it's also been set on the InputInterface.
      */
-    protected function askForPrefix(array $text = null, $namespace = null)
+    protected function askForPrefix(?array $text = null, $namespace = null)
     {
         $prefix = $this->assistant->getOptionOrDefault('prefix', null);
 
@@ -181,10 +181,8 @@ abstract class KunstmaanGenerateCommand extends GenerateDoctrineCommand
      * Converts something like Namespace\BundleNameBundle to namespace_bundlenamebundle.
      *
      * @param string $namespace
-     *
-     * @return string
      */
-    private function convertNamespaceToSnakeCase($namespace)
+    private function convertNamespaceToSnakeCase($namespace): string
     {
         if (is_null($namespace)) {
             return null;
@@ -217,7 +215,7 @@ abstract class KunstmaanGenerateCommand extends GenerateDoctrineCommand
         $objectName,
         $namespace = null,
         $questionMoreBundles = "\nIn which bundle do you want to create the %s",
-        $questionOneBundle = "The %s will be created for the <comment>%s</comment> bundle.\n"
+        $questionOneBundle = "The %s will be created for the <comment>%s</comment> bundle.\n",
     ) {
         return new Sf4AppBundle($this->getContainer()->getParameter('kernel.project_dir'));
     }
@@ -237,7 +235,7 @@ abstract class KunstmaanGenerateCommand extends GenerateDoctrineCommand
         BundleInterface $bundle,
         $multiple = false,
         $context = null,
-        $defaultSections = []
+        $defaultSections = [],
     ) {
         $allSections = $this->getAvailableSections($bundle, $context, $defaultSections);
         $sections = [];
@@ -313,10 +311,8 @@ abstract class KunstmaanGenerateCommand extends GenerateDoctrineCommand
      *
      * @param string $dir
      * @param string $file
-     *
-     * @return array|null
      */
-    private function getSectionInfo($dir, $file)
+    private function getSectionInfo($dir, $file): ?array
     {
         $info = null;
 
@@ -528,10 +524,8 @@ abstract class KunstmaanGenerateCommand extends GenerateDoctrineCommand
      * Get all the available types.
      *
      * @param bool $niceNames
-     *
-     * @return array
      */
-    private function getTypes($niceNames = false)
+    private function getTypes($niceNames = false): array
     {
         $counter = 1;
 
@@ -556,10 +550,8 @@ abstract class KunstmaanGenerateCommand extends GenerateDoctrineCommand
 
     /**
      * Get all available media types.
-     *
-     * @return array
      */
-    private function getMediaTypes()
+    private function getMediaTypes(): array
     {
         $counter = 1;
 
@@ -597,7 +589,7 @@ abstract class KunstmaanGenerateCommand extends GenerateDoctrineCommand
         $maxHeight = null,
         $minWidth = null,
         $maxWidth = null,
-        $mimeTypes = null
+        $mimeTypes = null,
     ) {
         $fields = [];
         switch ($type) {

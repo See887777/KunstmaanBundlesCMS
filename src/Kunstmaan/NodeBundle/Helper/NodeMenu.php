@@ -105,7 +105,7 @@ class NodeMenu
         EntityManagerInterface $em,
         TokenStorageInterface $tokenStorage,
         AclHelper $aclHelper,
-        DomainConfigurationInterface $domainConfiguration
+        DomainConfigurationInterface $domainConfiguration,
     ) {
         $this->em = $em;
         $this->tokenStorage = $tokenStorage;
@@ -121,7 +121,7 @@ class NodeMenu
         $this->locale = $locale;
     }
 
-    public function setCurrentNode(Node $currentNode = null)
+    public function setCurrentNode(?Node $currentNode = null)
     {
         $this->currentNode = $currentNode;
     }
@@ -454,7 +454,7 @@ class NodeMenu
     public function getNodeByInternalName(
         $internalName,
         $parent = null,
-        $includeOffline = null
+        $includeOffline = null,
     ) {
         $this->init();
         $resultNode = null;
@@ -658,10 +658,7 @@ class NodeMenu
         return $this->initialized;
     }
 
-    /**
-     * @return array
-     */
-    private function getTopNodeMenuItems()
+    private function getTopNodeMenuItems(): array
     {
         $topNodeMenuItems = [];
         $topNodes = $this->childNodes[0];

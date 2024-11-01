@@ -10,6 +10,7 @@ $finder = (new PhpCsFixer\Finder())
 ;
 
 return (new PhpCsFixer\Config())
+    ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setRiskyAllowed(false)
     ->setRules([
         '@Symfony' => true,
@@ -19,5 +20,6 @@ return (new PhpCsFixer\Config())
         'yoda_style' => false,
         'visibility_required' => ['elements' => ['property', 'method']],
         'phpdoc_separation' =>  ['skip_unlisted_annotations' => true],
+        'fully_qualified_strict_types' => false,
     ])
     ->setFinder($finder);

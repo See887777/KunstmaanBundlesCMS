@@ -58,7 +58,7 @@ class PageMenuAdaptor implements MenuAdaptorInterface
         EntityManagerInterface $em,
         AclNativeHelper $aclNativeHelper,
         PagesConfiguration $pagesConfiguration,
-        DomainConfigurationInterface $domainConfiguration
+        DomainConfigurationInterface $domainConfiguration,
     ) {
         $this->em = $em;
         $this->aclNativeHelper = $aclNativeHelper;
@@ -66,12 +66,11 @@ class PageMenuAdaptor implements MenuAdaptorInterface
         $this->domainConfiguration = $domainConfiguration;
     }
 
-    public function adaptChildren(
-        MenuBuilder $menu,
-        array &$children,
-        MenuItem $parent = null,
-        Request $request = null
-    ) {
+    /**
+     * @return void
+     */
+    public function adaptChildren(MenuBuilder $menu, array &$children, ?MenuItem $parent = null, ?Request $request = null)
+    {
         if (null === $parent) {
             $menuItem = new TopMenuItem($menu);
             $menuItem
@@ -129,7 +128,7 @@ class PageMenuAdaptor implements MenuAdaptorInterface
         $lang,
         $permission,
         AclNativeHelper $aclNativeHelper,
-        $includeHiddenFromNav
+        $includeHiddenFromNav,
     ) {
         if (null === $this->treeNodes) {
             $repo = $this->em->getRepository(Node::class);
@@ -163,10 +162,8 @@ class PageMenuAdaptor implements MenuAdaptorInterface
     /**
      * Get an array with the id's off all nodes in the tree that should be
      * expanded.
-     *
-     * @return array
      */
-    private function getActiveNodeIds($request)
+    private function getActiveNodeIds($request): array
     {
         if ((null === $this->activeNodeIds) && strncasecmp($request->attributes->get('_route'), 'KunstmaanNodeBundle_nodes_edit', 30) === 0) {
             $repo = $this->em->getRepository(Node::class);
@@ -196,7 +193,7 @@ class PageMenuAdaptor implements MenuAdaptorInterface
         array &$children,
         array $nodes,
         ?MenuItem $parent,
-        array $activeNodeIds
+        array $activeNodeIds,
     ) {
         foreach ($nodes as $child) {
             $menuItem = new MenuItem($menu);

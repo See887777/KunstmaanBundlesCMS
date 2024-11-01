@@ -43,7 +43,7 @@ final class NodeTwigExtension extends AbstractExtension
         EntityManagerInterface $em,
         UrlGeneratorInterface $generator,
         NodeMenu $nodeMenu,
-        RequestStack $requestStack
+        RequestStack $requestStack,
     ) {
         $this->em = $em;
         $this->generator = $generator;
@@ -56,7 +56,7 @@ final class NodeTwigExtension extends AbstractExtension
      *
      * @return array An array of functions
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction(
@@ -111,36 +111,23 @@ final class NodeTwigExtension extends AbstractExtension
      *
      * @param int    $nodeId
      * @param string $lang
-     *
-     * @return NodeTranslation
      */
-    public function getNodeTranslationByNodeId($nodeId, $lang)
+    public function getNodeTranslationByNodeId($nodeId, $lang): ?NodeTranslation
     {
-        $repo = $this->em->getRepository(NodeTranslation::class);
-
-        return $repo->getNodeTranslationByNodeId($nodeId, $lang);
+        return $this->em->getRepository(NodeTranslation::class)->getNodeTranslationByNodeId($nodeId, $lang);
     }
 
-    /**
-     * @return object|null
-     */
-    public function getPageByNodeTranslation(NodeTranslation $nodeTranslation)
+    public function getPageByNodeTranslation(NodeTranslation $nodeTranslation): ?object
     {
         return $nodeTranslation->getRef($this->em);
     }
 
-    /**
-     * @return Node
-     */
-    public function getNodeFor(PageInterface $page)
+    public function getNodeFor(PageInterface $page): Node
     {
         return $this->em->getRepository(Node::class)->getNodeFor($page);
     }
 
-    /**
-     * @return NodeTranslation
-     */
-    public function getNodeTranslationFor(PageInterface $page)
+    public function getNodeTranslationFor(PageInterface $page): ?NodeTranslation
     {
         return $this->em->getRepository(NodeTranslation::class)->getNodeTranslationFor($page);
     }
@@ -148,10 +135,8 @@ final class NodeTwigExtension extends AbstractExtension
     /**
      * @param string $internalName
      * @param string $locale
-     *
-     * @return Node|null
      */
-    public function getNodeByInternalName($internalName, $locale)
+    public function getNodeByInternalName($internalName, $locale): ?Node
     {
         $nodes = $this->em->getRepository(Node::class)
             ->getNodesByInternalName($internalName, $locale);
@@ -172,10 +157,8 @@ final class NodeTwigExtension extends AbstractExtension
      * @param string $locale       Locale
      * @param array  $parameters   (optional) extra parameters
      * @param bool   $relative     (optional) return relative path?
-     *
-     * @return string
      */
-    public function getPathByInternalName($internalName, $locale, $parameters = [], $relative = false)
+    public function getPathByInternalName($internalName, $locale, $parameters = [], $relative = false): string
     {
         $routeParameters = $this->getRouteParametersByInternalName($internalName, $locale, $parameters);
 
@@ -191,10 +174,8 @@ final class NodeTwigExtension extends AbstractExtension
      * @param string $locale         Locale
      * @param array  $parameters     (optional) extra parameters
      * @param bool   $schemeRelative (optional) return relative scheme?
-     *
-     * @return string
      */
-    public function getUrlByInternalName($internalName, $locale, $parameters = [], $schemeRelative = false)
+    public function getUrlByInternalName($internalName, $locale, $parameters = [], $schemeRelative = false): string
     {
         $routeParameters = $this->getRouteParametersByInternalName($internalName, $locale, $parameters);
 
@@ -208,10 +189,8 @@ final class NodeTwigExtension extends AbstractExtension
     /**
      * @param string $locale
      * @param bool   $includeHiddenFromNav
-     *
-     * @return NodeMenu
      */
-    public function getNodeMenu($locale, Node $node = null, $includeHiddenFromNav = false)
+    public function getNodeMenu($locale, ?Node $node = null, $includeHiddenFromNav = false): NodeMenu
     {
         $request = $this->requestStack->getMainRequest();
         $isPreview = $request->attributes->has('preview') && $request->attributes->get('preview') === true;
@@ -237,10 +216,8 @@ final class NodeTwigExtension extends AbstractExtension
      * @param string $internalName
      * @param string $locale
      * @param array  $parameters
-     *
-     * @return array
      */
-    private function getRouteParametersByInternalName($internalName, $locale, $parameters = [])
+    private function getRouteParametersByInternalName($internalName, $locale, $parameters = []): array
     {
         $url = '';
         $translation = $this->em->getRepository(NodeTranslation::class)

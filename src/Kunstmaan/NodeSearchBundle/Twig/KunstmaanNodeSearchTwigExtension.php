@@ -34,7 +34,7 @@ final class KunstmaanNodeSearchTwigExtension extends AbstractExtension
      *
      * @return array An array of functions
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('get_parent_page', [$this, 'getParentPage']),
@@ -42,10 +42,7 @@ final class KunstmaanNodeSearchTwigExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @return HasNodeInterface
-     */
-    public function getParentPage(HasNodeInterface $page, string $locale, bool $includeOffline = false)
+    public function getParentPage(HasNodeInterface $page, string $locale, bool $includeOffline = false): HasNodeInterface
     {
         /** @var Node $node */
         $node = $this->em->getRepository(Node::class)->getNodeFor($page);
@@ -68,7 +65,7 @@ final class KunstmaanNodeSearchTwigExtension extends AbstractExtension
         array $twigContext,
         HasPagePartsInterface $page,
         $contextName = 'main',
-        array $parameters = []
+        array $parameters = [],
     ) {
         $template = $env->load('@KunstmaanNodeSearch/PagePart/view.html.twig');
         $pageparts = $this->indexablePagePartsService->getIndexablePageParts($page, $contextName);

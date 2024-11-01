@@ -57,7 +57,7 @@ abstract class FixtureLoader implements FixtureInterface, ContainerAwareInterfac
      *
      * @return array|mixed
      */
-    private function initFixtures($data)
+    private function initFixtures($data): mixed
     {
         $fixtures = [];
         $parser = $this->container->get('kunstmaan_fixtures.parser.parser');
@@ -93,7 +93,7 @@ abstract class FixtureLoader implements FixtureInterface, ContainerAwareInterfac
      *
      * @api
      */
-    public function setContainer(ContainerInterface $container = null)
+    public function setContainer(?ContainerInterface $container = null)
     {
         $this->container = $container;
     }

@@ -76,10 +76,7 @@ class CommandAssistant
         $this->getQuestionHelper()->writeSection($this->output, $text, $style);
     }
 
-    /**
-     * @return Questionhelper
-     */
-    private function getQuestionHelper()
+    private function getQuestionHelper(): Questionhelper
     {
         return $this->questionHelper;
     }
@@ -92,7 +89,7 @@ class CommandAssistant
     public function write(
         $text,
         $newLine = false,
-        $type = OutputInterface::OUTPUT_NORMAL
+        $type = OutputInterface::OUTPUT_NORMAL,
     ) {
         $this->output->write($text, $newLine, $type);
     }
@@ -114,7 +111,7 @@ class CommandAssistant
         $question,
         $validator,
         $defaultValue = null,
-        array $autoComplete = null
+        ?array $autoComplete = null,
     ) {
         $validationQuestion = new Question(
             $this->getQuestionHelper()->getQuestion($question, $defaultValue),
@@ -134,7 +131,7 @@ class CommandAssistant
         $question,
         $defaultString,
         $separator = '?',
-        $defaultValue = true
+        $defaultValue = true,
     ) {
         $confirmationQuestion = new ConfirmationQuestion(
             $this->getQuestionHelper()->getQuestion(
@@ -151,7 +148,7 @@ class CommandAssistant
         );
     }
 
-    public function ask($question, $default = null, array $autoComplete = null)
+    public function ask($question, $default = null, ?array $autoComplete = null)
     {
         $askQuestion = new Question(
             $this->questionHelper->getQuestion($question, $default), $default
@@ -170,7 +167,7 @@ class CommandAssistant
         $choices,
         $default = null,
         $multiSelect = false,
-        $errorMessage = 'Value "%s" is invalid'
+        $errorMessage = 'Value "%s" is invalid',
     ) {
         $bundleQuestion = new ChoiceQuestion(
             $this->getQuestionHelper()->getQuestion($question, $default),

@@ -197,7 +197,7 @@ class PagePartCreatorService
      *
      * @return callable the function that will instantiate a pagepart
      */
-    public function getCreatorArgumentsForPagePartAndProperties($pagePartClassName, array $setters = null)
+    public function getCreatorArgumentsForPagePartAndProperties($pagePartClassName, ?array $setters = null)
     {
         return function () use ($pagePartClassName, $setters) {
             $pp = new $pagePartClassName();
@@ -214,10 +214,8 @@ class PagePartCreatorService
 
     /**
      * @param mixed(string|Node) $nodeOrInternalName
-     *
-     * @return object
      */
-    private function getNode($nodeOrInternalName)
+    private function getNode($nodeOrInternalName): object
     {
         if (\is_string($nodeOrInternalName)) {
             return $this->nodeRepo->findOneBy(['internalName' => $nodeOrInternalName]);

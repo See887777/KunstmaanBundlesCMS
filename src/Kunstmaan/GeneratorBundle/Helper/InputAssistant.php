@@ -46,7 +46,7 @@ class InputAssistant
      *
      * @return string The namespace. But it's also been set on the InputInterface.
      */
-    public function askForNamespace(array $text = null)
+    public function askForNamespace(?array $text = null)
     {
         $namespace = $this->input->hasOption('namespace') ? $this->input->getOption('namespace') : null;
 
@@ -137,10 +137,8 @@ class InputAssistant
 
     /**
      * Returns a list of namespaces as array with a forward slash to split the namespace & bundle.
-     *
-     * @return array
      */
-    private function getNamespaceAutoComplete(Kernel $kernel)
+    private function getNamespaceAutoComplete(Kernel $kernel): array
     {
         $ret = [];
         foreach ($kernel->getBundles() as $k => $v) {
@@ -168,7 +166,7 @@ class InputAssistant
      *
      * @return string The prefix. But it's also been set on the InputInterface.
      */
-    public function askForPrefix(array $text = null, $namespace = null)
+    public function askForPrefix(?array $text = null, $namespace = null)
     {
         $prefix = $this->input->hasOption('prefix') ? $this->input->getOption('prefix') : null;
 
@@ -218,10 +216,8 @@ class InputAssistant
      * Converts something like Namespace\BundleNameBundle to namspace_bundlenamebundle.
      *
      * @param string $namespace
-     *
-     * @return string
      */
-    private function convertNamespaceToSnakeCase($namespace)
+    private function convertNamespaceToSnakeCase($namespace): string
     {
         if (is_null($namespace)) {
             return null;

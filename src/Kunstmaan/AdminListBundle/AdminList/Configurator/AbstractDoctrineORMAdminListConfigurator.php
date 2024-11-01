@@ -43,7 +43,7 @@ abstract class AbstractDoctrineORMAdminListConfigurator extends AbstractAdminLis
      */
     protected $aclHelper;
 
-    public function __construct(EntityManagerInterface $em, AclHelper $aclHelper = null)
+    public function __construct(EntityManagerInterface $em, ?AclHelper $aclHelper = null)
     {
         $this->em = $em;
         $this->aclHelper = $aclHelper;
@@ -125,7 +125,7 @@ abstract class AbstractDoctrineORMAdminListConfigurator extends AbstractAdminLis
     /**
      * Return an iterator for all items that matches the current filtering
      *
-     * @return \Iterator
+     * @return iterable
      */
     public function getIterator()
     {

@@ -80,7 +80,7 @@ final class ChooserController extends AbstractController
      * @param int $folderId The folder id
      */
     #[Route(path: '/chooser/{folderId}', requirements: ['folderId' => '\d+'], name: 'KunstmaanMediaBundle_chooser_show_folder')]
-    public function chooserShowFolderAction(Request $request, $folderId): Response
+    public function chooserShowFolderAction(Request $request, $folderId, array $customViewVars = []): Response
     {
         $session = $request->getSession();
 
@@ -139,6 +139,7 @@ final class ChooserController extends AbstractController
             'folder' => $folder,
             'adminlist' => $adminList,
             'subform' => $subForm->createView(),
+            ...$customViewVars,
         ];
 
         $forms = [];
@@ -153,10 +154,8 @@ final class ChooserController extends AbstractController
 
     /**
      * @param string $type
-     *
-     * @return \Symfony\Component\Form\FormView
      */
-    private function createTypeFormView(MediaManager $mediaManager, $type)
+    private function createTypeFormView(MediaManager $mediaManager, $type): \Symfony\Component\Form\FormView
     {
         $handler = $mediaManager->getHandlerForType($type);
         $media = new Media();
